@@ -1,5 +1,13 @@
-import ReactPaginate from "react-paginate";
+import ReactPaginateDefault from "react-paginate";
 import css from "./Pagination.module.css";
+
+// react-paginate ships as CommonJS; у продакшн-збірці Vite його default-експорт
+// може бути загорнутий у додатковий шар { default }, тож розгортаємо його безпечно.
+const ReactPaginate = (
+  ReactPaginateDefault as unknown as {
+    default?: typeof ReactPaginateDefault;
+  }
+).default ?? ReactPaginateDefault;
 
 export interface PaginationProps {
   pageCount: number;
